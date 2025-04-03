@@ -1,0 +1,4 @@
+Change Log
+
+Verzija 0.0.1
+//Dodan ChangeLog
