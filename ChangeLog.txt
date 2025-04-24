@@ -1,0 +1,26 @@
+Change Log
+
+Verzija 0.0.1
+Refactor: Migrate to Jetpack Compose Navigation and improve UI
+This commit implements Jetpack Compose Navigation to manage different screens and refactors the UI components for better structure and navigation.
+
+-   **Navigation:**
+    - Implemented a navigation graph using `NavHost` to manage navigation between `HomeScreen`, `FamilyTree`, `QuestsReport` and `SettingsScreen`.
+    - Integrated a bottom navigation bar in `Nav` with icons for `home`, `family tree` and `quests report` to switch between screens.
+    - `BottomNav` deleted.
+-   **UI Components:**
+    - Created `QuestsRow` as a reusable component for displaying quests in list and replaced `HomeScreen` and `QuestsRow`.
+    - Created `FamilyRow` as a reusable component for displaying family in list.
+    - Created `HomeScreen` that will display `QuestsRow` in list.
+    - Created `FamilyTree` that will display `FamilyRow` in list.
+    - Created `QuestsReport` that will display `QuestsRow` in list.
+    - Created `SettingsScreen` that will display `QuestsRow` in list.
+    - Created `SettingsList` data class.
+    - Created `rememberSettingsState` composable function.
+    - Added icons for navigation bar, user, arrow, family tree and quest report.
+- **Gradle**
+    - Added navigation-compose dependency.
+- **Removals**
+    - Removed old `HomeScreen`.
+
+These changes allow for a more modular and maintainable codebase, as well as provide a more complete and user-friendly navigation experience.
