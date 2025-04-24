@@ -15,18 +15,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import components.QuestsRow
+import settings.view_Model.SettingsViewModel
 
 @Composable
 fun QuestsReport(
     navController: NavHostController,
+    settingsViewModel: SettingsViewModel = viewModel()
 ) {
+    val selectedIcon by remember { settingsViewModel.selectedIcon }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,7 +49,7 @@ fun QuestsReport(
                 .padding(top = 64.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_user),
+                painter = painterResource(id = selectedIcon),
                 contentDescription = null,
                 modifier = Modifier
                     .height(32.dp)
@@ -65,8 +72,8 @@ fun QuestsReport(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            items(15) { index ->
-                QuestsRow(title = "Quest $index")
+            items(5) { index ->
+                QuestsRow(title = "Quest $index", action = { navController.navigate("questInfo") })
             }
         }
     }

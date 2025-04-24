@@ -19,6 +19,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,11 +28,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.questie.R
+import settings.view_Model.SettingsViewModel
 
 @Composable
-fun FamilyTree(navController: NavHostController) {
+fun FamilyTree(
+    navController: NavHostController,
+    settingsViewModel: SettingsViewModel = viewModel()
+) {
+    val selectedIcon by remember { settingsViewModel.selectedIcon }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +55,7 @@ fun FamilyTree(navController: NavHostController) {
                 .padding(top = 64.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_user),
+                painter = painterResource(id = selectedIcon),
                 contentDescription = null,
                 modifier = Modifier
                     .height(32.dp)
@@ -65,9 +74,11 @@ fun FamilyTree(navController: NavHostController) {
             color = Color.Black,
             modifier = Modifier.padding(bottom = 24.dp)
         )
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.3f)) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.3f)
+        ) {
             items(7) { index ->
                 FamilyRow(title = "Parent $index")
             }
@@ -78,9 +89,11 @@ fun FamilyTree(navController: NavHostController) {
             color = Color.Black,
             modifier = Modifier.padding(bottom = 24.dp, top = 24.dp)
         )
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
             items(12) { index ->
                 FamilyRow(title = "Child $index")
             }

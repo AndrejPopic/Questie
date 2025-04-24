@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -28,25 +29,32 @@ import com.example.questie.QuestsReport
 import com.example.questie.R
 import com.example.questie.familyTree.view_model.FamilyTree
 import com.example.questie.home.HomeScreen
+import com.example.questie.questInfo.QuestInfo
 import settings.SettingsScreen
+import settings.view_Model.SettingsViewModel
 
 @Composable
 fun Nav() {
     val navController = rememberNavController()
 
+    val settingsViewModel: SettingsViewModel = viewModel()
+
     // Define the navigation graph
     NavHost(navController = navController, startDestination = "homeScreen") {
         composable("homeScreen") {
-            HomeScreen(navController)
+            HomeScreen(navController, settingsViewModel)
         }
         composable("familyTree") {
-            FamilyTree(navController)
+            FamilyTree(navController, settingsViewModel)
         }
         composable("questsReport") {
-            QuestsReport(navController)
+            QuestsReport(navController, settingsViewModel)
         }
         composable("settings") {
-            SettingsScreen(navController)
+            SettingsScreen(navController, settingsViewModel)
+        }
+        composable("questInfo") {
+            QuestInfo(navController, settingsViewModel)
         }
     }
 
@@ -61,7 +69,7 @@ fun Nav() {
                 .fillMaxWidth()
                 .fillMaxHeight(0.08f)
                 .background(color = Color.LightGray)
-                .padding(bottom = 32.dp),
+                .padding(bottom = 36.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
